@@ -4,7 +4,12 @@ const express = require("express");
 
 const noteModel = require("./models/note.model");
 
+const cors = require("cors");
+
 const app = express();
+
+app.use(cors());
+
 //use middleware
 app.use(express.json());
 
@@ -48,7 +53,7 @@ app.patch("/api/notes/:id", async (req, res) => {
   const id = req.params.id;
   const { description } = req.body;
 
-  await noteModel.findByIdAndUpdate(id, { description }, { new: true });
+  await noteModel.findByIdAndUpdate(id, { description });
 
   res.status(200).json({
     message: "Note updated successfully",
