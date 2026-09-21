@@ -1,17 +1,17 @@
 //->
 
 const express = require("express");
-
 const noteModel = require("./models/note.model");
-
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
-
 app.use(cors());
-
 //use middleware
 app.use(express.json());
+
+//this is used to serve static files from the public folder .when browser request for http://localhost:3000/index.html then it will serve the index.html file from public folder
+app.use(express.static(path.join(__dirname, "../public")));
 
 //POST API
 app.post("/api/notes", async (req, res) => {
@@ -59,6 +59,12 @@ app.patch("/api/notes/:id", async (req, res) => {
     message: "Note updated successfully",
     note,
   });
+});
+
+//it handle the request which is not handled by any of the above routes/apis
+app.use("*name", (req, res) => {
+  // res.sendFile("../public/index.html",{root:__dirname})
+  res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 
 module.exports = app;
