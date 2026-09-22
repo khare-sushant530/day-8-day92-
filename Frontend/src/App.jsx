@@ -8,7 +8,7 @@ function App() {
   const [updatedDescription, setUpdatedDescription] = useState("");
 
   function fetchNotes() {
-    axios.get("http://localhost:3000/api/notes").then((res) => {
+    axios.get("https://day-9-6e8w.onrender.com/api/notes").then((res) => {
       setNotes(res.data.notes);
       console.log(res.data.notes);
     });
@@ -25,7 +25,7 @@ function App() {
     console.log(title.value, description.value);
 
     axios
-      .post("http://localhost:3000/api/notes", {
+      .post("https://day-9-6e8w.onrender.com/api/notes", {
         title: title.value,
         description: description.value,
       })
@@ -37,10 +37,12 @@ function App() {
 
   function handleDeleteNote(noteId) {
     console.log(noteId);
-    axios.delete("http://localhost:3000/api/notes/" + noteId).then((res) => {
-      console.log(res.data);
-      fetchNotes();
-    });
+    axios
+      .delete("https://day-9-6e8w.onrender.com/api/notes/" + noteId)
+      .then((res) => {
+        console.log(res.data);
+        fetchNotes();
+      });
   }
   function handleUpdateNote(noteId) {
     console.log(noteId, "Note updated");
@@ -52,7 +54,7 @@ function App() {
   }
   function handleSaveUpdate(noteId) {
     axios
-      .patch("http://localhost:3000/api/notes/" + noteId, {
+      .patch("https://day-9-6e8w.onrender.com/api/notes/" + noteId, {
         description: updatedDescription,
       })
       .then((res) => {
@@ -87,7 +89,10 @@ function App() {
                     onChange={(e) => setUpdatedDescription(e.target.value)}
                   />
 
-                  <button className="save-update" onClick={() => handleSaveUpdate(note._id)}>
+                  <button
+                    className="save-update"
+                    onClick={() => handleSaveUpdate(note._id)}
+                  >
                     Save Update
                   </button>
                 </>

@@ -11,9 +11,12 @@ const handleUpdateNote = async (noteId) => {
   if (!description) return;
 
   try {
-    const res = await axios.patch("http://localhost:3000/api/notes/" + noteId, {
-      description: description,
-    });
+    const res = await axios.patch(
+      "https://day-9-6e8w.onrender.com/api/notes/" + noteId,
+      {
+        description: description,
+      },
+    );
 
     console.log(res.data);
 
