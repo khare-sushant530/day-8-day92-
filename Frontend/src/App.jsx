@@ -87,7 +87,7 @@ function App() {
                     onChange={(e) => setUpdatedDescription(e.target.value)}
                   />
 
-                  <button onClick={() => handleSaveUpdate(note._id)}>
+                  <button className="save-update" onClick={() => handleSaveUpdate(note._id)}>
                     Save Update
                   </button>
                 </>

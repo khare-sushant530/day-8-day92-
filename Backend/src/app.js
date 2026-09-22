@@ -30,7 +30,7 @@ app.use(cors());
 app.use(express.json());
 
 //this is used to serve static files from the public folder .when browser request for http://localhost:3000/index.html then it will serve the index.html file from public folder
-app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.static("./public"));
 
 //POST API
 app.post("/api/notes", async (req, res) => {
