@@ -5,6 +5,25 @@ const noteModel = require("./models/note.model");
 const cors = require("cors");
 const path = require("path");
 
+const handleUpdateNote = async (noteId) => {
+  const description = prompt("Enter updated description:");
+
+  if (!description) return;
+
+  try {
+    const res = await axios.patch("http://localhost:3000/api/notes/" + noteId, {
+      description: description,
+    });
+
+    console.log(res.data);
+
+    // Refresh notes after update
+    getNotes();
+  } catch (error) {
+    console.log("Error updating note:", error);
+  }
+};
+
 const app = express();
 app.use(cors());
 //use middleware
@@ -53,7 +72,11 @@ app.patch("/api/notes/:id", async (req, res) => {
   const id = req.params.id;
   const { description } = req.body;
 
-  await noteModel.findByIdAndUpdate(id, { description });
+  const note = await noteModel.findByIdAndUpdate(
+    id,
+    { description },
+    { new: true },
+  );
 
   res.status(200).json({
     message: "Note updated successfully",
